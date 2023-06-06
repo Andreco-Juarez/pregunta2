@@ -155,20 +155,18 @@ window.onload = function(){
 
 
     }
+
     
     function setGameScreen(root){
         let h1 = document.createElement("h1");
         let btnSend = document.createElement("button");
         let divPlayer1 = document.createElement("div");
         let divPlayer2 = document.createElement("div");
-        let canvas = document.createElement("canvas");
 
-        canvas.style.height = "300px";
-        canvas.style.width = "300px";
+  
 
-        let ctx = canvas.getContext('2d');
 
-        
+
 
         h1.textContent = "Turno de:" + jugadorActivo.nombre;
         btnSend.textContent = "Pregunta"
@@ -179,7 +177,9 @@ window.onload = function(){
         root.appendChild(btnSend);
         root.appendChild(divPlayer1);
         root.appendChild(divPlayer2);
-        root.appendChild(canvas);
+
+        body.style.backgroundColor="#b5ead7";
+
 
         btnSend.addEventListener("click",()=>{
             let numeroAleatorio = Math.floor(Math.random() * 6);
@@ -189,20 +189,40 @@ window.onload = function(){
         })
     }
 
+    /*Primera vista*/
     function setFirstScreen(root){
         let input1 = document.createElement("input");
         let input2 = document.createElement("input");
         let btnInicio = document.createElement("button");
-
-        input1.value = "jugador1";
-        input2.value = "jugador2";
+        let divContainer = document.createElement("div");
+        let divTitulo = document.createElement("div");
+        let spanTitulo = document.createElement("span");
+        
+        input1.value = "";
+        input2.value = "";
         btnInicio.textContent = "Iniciar Juego";
         btnInicio.id = "btnInicio";
- 
+        divContainer.id = "divContainer";
+        divTitulo.id="divTitulo";
+        spanTitulo.id="spanTitulo";
 
-        root.appendChild(input1);
-        root.appendChild(input2);
-        root.appendChild(btnInicio);
+ 
+        
+        // divContainer.setAttribute("id", "divContainer");
+        // divPadre.appendChild(divTitulo);
+        spanTitulo.innerHTML="Preguntados";
+        divPadre.appendChild(spanTitulo);
+        divPadre.appendChild(divContainer);
+        divContainer.appendChild(input1);
+        divContainer.appendChild(input2);
+        divPadre.appendChild(btnInicio);
+        // root.appendChild(divContainer);
+        // root.appendChild(input1);
+        // root.appendChild(input2);
+        // root.appendChild(btnInicio);
+        body.style.backgroundColor="#FF9AA2";
+        input1.setAttribute("placeholder", "Jugador 1");
+        input2.setAttribute("placeholder", "Jugador 2");
 
         btnInicio.addEventListener("click", ()=>{
             player1 = new Jugador(input1.value);
@@ -242,12 +262,13 @@ window.onload = function(){
     //2->pregunta
     //3->resPregunta
     //4->win
-
+    let body = document.getElementById("body");
     let player1, player2;
     let jugadorActivo;
     let screenState = 0;
     let materias = ["Matemáticas","Física","Química","Psicología","Literatura","Computación"];
     let materia = "Matemáticas";
+
     let divPadre = document.getElementById("juego");
     setScreens(0);
 

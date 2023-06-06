@@ -1,3 +1,82 @@
+@font-face {
+    font-family: Input;
+    src: url("../fonts/Tsukimi_Rounded/TsukimiRounded-Bold.ttf");
+}
+*{
+    margin: 0;
+}
+body{
+    /* background-color: #FF9AA2; */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-around; */
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+#juego{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+/*=================================Pantalla 1=======================================*/
+#spanTitulo{
+    font-family: Input;
+    font-size: 4rem;
+    /* margin-bottom: 2rem; */
+        /* text-align: center; */
+        animation: pulse;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+}
+/*Contenedor de los inputs*/
+#divContainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 60vw;
+    height: 200px;
+    background-color: rgba(99, 111, 247, 0.287);
+    border-radius: 38% 62% 31% 69% / 57% 34% 66% 43%                    ;
+    margin: 3rem;
+}
+#divContainer>input{
+    width: 20vw;
+    height: 4rem;
+    border-radius: 2rem;
+    border: transparent solid 1px;    
+    background-color: #e6ffb3;
+    font-family: Input;
+    font-size: 1.5rem;
+    text-align: center;
+}
+#divContainer>input:focus{
+    transition: transform .3s linear, background-color .3s linear;
+    transform: scale(1.1);
+    background-color: #d0f683;
+}
+#btnInicio{
+    width: 12vw;
+    height: 2rem;
+    border-radius: 2rem;
+    border: transparent solid 1px;
+    background-color: #B5EAD7;
+    font-family: Input;
+    font-size: 1rem;
+    text-align: center;
+}
+#btnInicio:hover{
+    transition: background-color .2s linear, transform .2s linear;
+    background-color: #71ceac;
+    transform: scale(1.2);
+}
+
+/*==========================Pantalla¿=============================================*/
+
+
 .respuesta{
     background-color: #f4f4f4;
     color: #000;
