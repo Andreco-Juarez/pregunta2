@@ -162,16 +162,19 @@ window.onload = function(){
         let btnSend = document.createElement("button");
         let divPlayer1 = document.createElement("div");
         let divPlayer2 = document.createElement("div");
-
-  
-
-
-
+        let imagenRuleta = document.createElement("img");
+        let imagenFlecha = document.createElement("img");
 
         h1.textContent = "Turno de:" + jugadorActivo.nombre;
         btnSend.textContent = "Pregunta"
         divPlayer1.innerHTML = addTextDivPlayer(player1);
         divPlayer2.innerHTML = addTextDivPlayer(player2);
+        imagenRuleta.src = "./statics/images/ruletaFinal.png";
+        imagenRuleta.width = 900;
+        imagenRuleta.height = 900;
+        imagenFlecha.src = "./statics/images/flecha.png";
+        imagenFlecha.width = 258;
+        imagenFlecha.height = 338;
 
         root.appendChild(h1);
         root.appendChild(btnSend);
