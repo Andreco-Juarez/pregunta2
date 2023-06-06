@@ -162,27 +162,32 @@ window.onload = function(){
         let btnSend = document.createElement("button");
         let divPlayer1 = document.createElement("div");
         let divPlayer2 = document.createElement("div");
-        let imagen = document.createElement('img');
+        let imagenRuleta = document.createElement("img");
+        let imagenFlecha = document.createElement("img")
 
         
 
         h1.textContent = "Turno de:" + jugadorActivo.nombre;
         btnSend.textContent = "Pregunta"
-        imagen.src = "./statics/images/ruletaFinal.png";
-        imagen.width = 900;
-        imagen.height = 900;
+
+        imagenRuleta.src = "./statics/images/ruletaFinal.png";
+        imagenRuleta.width = 900;
+        imagenRuleta.height = 900;
       
+        imagenFlecha.src = "./statics/images/flecha.png";
+        imagenFlecha.width = 258;
+        imagenFlecha.height = 228;
 
  
         divPlayer1.innerHTML = addTextDivPlayer(player1);
         divPlayer2.innerHTML = addTextDivPlayer(player2);
         
         root.appendChild(h1);
-        root.appendChild(imagen);
+        root.appendChild(imagenFlecha);
+        root.appendChild(imagenRuleta);
         root.appendChild(btnSend);
         root.appendChild(divPlayer1);
         root.appendChild(divPlayer2);
-        root.appendChild(canvas);
 
         btnSend.addEventListener("click",()=>{
             let numeroAleatorio = Math.floor(Math.random() * 6);
