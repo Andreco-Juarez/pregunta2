@@ -5,7 +5,7 @@ window.onload = function(){
             this.nombre = nombre
             this.mate = 0;
             this.fisica = 0;
-            this.qumica = 0;
+            this.química = 0;
             this.psico = 0;
             this.lite = 0;
             this.compu = 0;
@@ -41,7 +41,7 @@ window.onload = function(){
 
     function addTextDivPlayer(player){
         let text = "";
-        text += "Player: "+player.nombre+"<br>"
+        text += "<span>Player: "+player.nombre+"<br>"
         for(logro in player){
             if(logro != "nombre"){
                 if(player[logro] == 1){
@@ -49,6 +49,7 @@ window.onload = function(){
                 }
             }
         }
+        text += "</span>"
         return text;
     }
 
@@ -120,7 +121,7 @@ window.onload = function(){
         setTimeout(function() {
             screenState = 1;
             setScreens(1);
-        }, 1000);
+        }, 1500);
     }
 
     function setWinScreen(root){
@@ -161,21 +162,23 @@ window.onload = function(){
         let btnSend = document.createElement("button");
         let divPlayer1 = document.createElement("div");
         let divPlayer2 = document.createElement("div");
-        let canvas = document.createElement("canvas");
-
-        canvas.style.height = "300px";
-        canvas.style.width = "300px";
-
-        let ctx = canvas.getContext('2d');
+        let imagen = document.createElement('img');
 
         
 
         h1.textContent = "Turno de:" + jugadorActivo.nombre;
         btnSend.textContent = "Pregunta"
+        imagen.src = "./statics/images/ruletaFinal.png";
+        imagen.width = 900;
+        imagen.height = 900;
+      
+
+ 
         divPlayer1.innerHTML = addTextDivPlayer(player1);
         divPlayer2.innerHTML = addTextDivPlayer(player2);
-
+        
         root.appendChild(h1);
+        root.appendChild(imagen);
         root.appendChild(btnSend);
         root.appendChild(divPlayer1);
         root.appendChild(divPlayer2);
@@ -194,12 +197,13 @@ window.onload = function(){
         let input2 = document.createElement("input");
         let btnInicio = document.createElement("button");
 
+
+
         input1.value = "jugador1";
         input2.value = "jugador2";
         btnInicio.textContent = "Iniciar Juego";
         btnInicio.id = "btnInicio";
- 
-
+        
         root.appendChild(input1);
         root.appendChild(input2);
         root.appendChild(btnInicio);
