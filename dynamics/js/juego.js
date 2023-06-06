@@ -178,6 +178,8 @@ window.onload = function(){
 
         root.appendChild(h1);
         root.appendChild(btnSend);
+        root.appendChild(imagenRuleta);
+        root.appendChild(imagenFlecha);
         root.appendChild(divPlayer1);
         root.appendChild(divPlayer2);
 
