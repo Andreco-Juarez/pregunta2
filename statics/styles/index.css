@@ -1,0 +1,12 @@
+.respuesta{
+    background-color: #f4f4f4;
+    color: #000;
+}
+
+#correcto{
+    color: #00cc00;
+}
+
+#incorrecto{
+    color: #cc0000;
+}
