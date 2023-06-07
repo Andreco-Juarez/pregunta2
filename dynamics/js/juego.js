@@ -125,7 +125,7 @@ window.onload = function(){
 
     function setWinScreen(root){
         let ganaste = document.createElement("h1");
-        ganaste.textContent = "Ganaste OMG!!!!!!! :0";
+        ganaste.textContent = "Ganaste "+jugadorActivo.nombre+"OMG!!!!!!! :0";
         root.appendChild(ganaste);
     }
 
