@@ -156,17 +156,28 @@ window.onload = function(){
 
     }
 
-    
+    /*Pantalla de ruleta*/
     function setGameScreen(root){
-        let h1 = document.createElement("h1");
+        let span = document.createElement("span");
         let btnSend = document.createElement("button");
-        let divPlayer1 = document.createElement("div");
-        let divPlayer2 = document.createElement("div");
+        let contPlayers = document.createElement("div");
+        // let divPlayer1 = document.createElement("div");
+        let divPlayer1 = document.createElement("span");
+        let divPlayer2 = document.createElement("span");
+        // let divPlayer2 = document.createElement("div");
         let imagenRuleta = document.createElement("img");
         let imagenFlecha = document.createElement("img");
 
-        h1.textContent = "Turno de:" + jugadorActivo.nombre;
-        btnSend.textContent = "Pregunta"
+        contPlayers.id="contPlayers";
+        imagenRuleta.id="imgRuleta";
+        imagenFlecha.id="imgFlecha";
+        span.id="spanTurno";
+        btnSend.id="btnSend";
+
+
+
+        span.textContent = "Turno de:" + jugadorActivo.nombre;
+        btnSend.textContent = "Girar"
         divPlayer1.innerHTML = addTextDivPlayer(player1);
         divPlayer2.innerHTML = addTextDivPlayer(player2);
         imagenRuleta.src = "./statics/images/ruletaFinal.png";
@@ -176,10 +187,23 @@ window.onload = function(){
         imagenFlecha.width = 258;
         imagenFlecha.height = 338;
 
-        root.appendChild(h1);
-        root.appendChild(btnSend);
-        root.appendChild(divPlayer1);
-        root.appendChild(divPlayer2);
+        contPlayers.appendChild(divPlayer1);
+        contPlayers.appendChild(divPlayer2);
+        divPadre.appendChild(span);
+        divPadre.appendChild(imagenFlecha);
+        divPadre.appendChild(imagenRuleta);
+        divPadre.appendChild(btnSend);
+        divPadre.appendChild(contPlayers);
+        // divPadre.appendChild(divPlayer1);
+        // divPadre.appendChild(divPlayer2);
+
+
+        // root.appendChild(span);
+        // root.appendChild(imagenRuleta);
+        // root.appendChild(imagenFlecha);
+        // root.appendChild(btnSend);
+        // root.appendChild(divPlayer1);
+        // root.appendChild(divPlayer2);
 
         body.style.backgroundColor="#b5ead7";
 

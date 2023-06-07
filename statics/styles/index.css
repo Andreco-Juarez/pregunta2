@@ -74,7 +74,59 @@ body{
     transform: scale(1.2);
 }
 
-/*==========================Pantalla¿=============================================*/
+/*==========================Pantalla Ruleta=============================================*/
+#imgRuleta{
+    width: 450px;
+    height: 450px;
+}
+#imgFlecha {
+    width: 25px;
+    height: 37px;
+}
+#spanTurno{
+    font-family: Input;
+    font-size: 3.5rem;
+}
+#btnSend{
+    margin-top: 10px;;
+    width: 8vw;
+    height: 3rem;
+    border-radius: 2rem;
+    border: transparent solid 1px;
+    background-color: #d0f683;
+    font-family: Input;
+    font-size: 1.7rem;
+    text-align: center;
+}
+#btnSend:hover {
+    transition: transform .3s linear, background-color .3s linear;
+    transform: scale(1.2);
+    background-color: #d0f683;
+}
+
+#contPlayers{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 5px;
+    width: 60vw;
+    height: 70px;
+    /* background-color: red; */
+}
+#contPlayers>span{
+    padding: 1rem;
+    background-color: #FFB7B2;
+    font-family: Input;
+    font-size: 1.5rem;
+    text-align: center;
+}
+#contPlayers>span:first-child{
+    border-radius: 76% 24% 74% 26% / 26% 57% 43% 74%;
+}
+#contPlayers>span:last-child {
+    border-radius: 32% 68% 25% 75% / 69% 37% 63% 31%;
+}
+
 
 
 .respuesta{
