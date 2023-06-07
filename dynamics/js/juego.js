@@ -221,10 +221,22 @@ window.onload = function(){
 
 
         btnSend.addEventListener("click",()=>{
-            let numeroAleatorio = Math.floor(Math.random() * 6);
-            materia = materias[numeroAleatorio];
-            screenState = 2;
-            setScreens(2);
+            new Promise((resolve,reject)=>{
+                let casilla = Math.floor(Math.random() * 6);
+                materia = materias[casilla];
+                let vueltas = Math.floor(Math.random() * 5) + 2;
+                let degrees = (60*(casilla+1)-60)+(360*vueltas);
+                console.log(materia);
+                console.log(degrees);
+                imagenRuleta.style.transition = "transform 4s linear";
+                imagenRuleta.style.transform = "rotate("+degrees+"deg)";
+                setTimeout(()=>{
+                    resolve();
+                },5000)
+            }).then(()=>{
+                screenState = 2;
+                setScreens(2);
+            })
         })
     }
 
@@ -308,7 +320,7 @@ window.onload = function(){
     let player1, player2;
     let jugadorActivo;
     let screenState = 0;
-    let materias = ["Matemáticas","Física","Química","Psicología","Literatura","Computación"];
+    let materias = ["Matemáticas","Computación", "Literatura", "Psicología", "Química", "Física"];//"Física","Química","Psicología","Literatura","Computación"
     let materia = "Matemáticas";
 
     let divPadre = document.getElementById("juego");
