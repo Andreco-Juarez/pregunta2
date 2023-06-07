@@ -3,12 +3,12 @@ window.onload = function(){
     class Jugador{
         constructor(nombre){
             this.nombre = nombre
-            this.mate = 1;
-            this.fisica = 1;
-            this.qumica = 1;
-            this.psico = 1;
-            this.lite = 1;
-            this.compu = 1;
+            this.mate = 0;
+            this.fisica = 0;
+            this.qumica = 0;
+            this.psico = 0;
+            this.lite = 0;
+            this.compu = 0;
         }
     }
 
@@ -129,14 +129,26 @@ window.onload = function(){
         root.appendChild(ganaste);
     }
 
+    /*Pantalla de Pregunta*/
     function setQuestionScreen(root){
         let datos = {materia: materia}
         fetch("./dynamics/php/juego.php", {method: "POST", body: JSON.stringify(datos)}).then(function(response){
             return response.json();
         }).then(function (json){
             console.log(json);
+
+
             let divPregunta = document.createElement("div");
             let materiaHeader = document.createElement("h1");
+            let divMateria = document.createElement("div");
+
+
+
+            divMateria.id="divMateria";
+
+
+
+
             let res1 = new Respuesta(json.res1.respuesta, json.res1.boolCorrect);
             let res2 = new Respuesta(json.res2.respuesta, json.res2.boolCorrect);
             let res3 = new Respuesta(json.res3.respuesta, json.res3.boolCorrect);
