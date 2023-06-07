@@ -3,12 +3,12 @@ window.onload = function(){
     class Jugador{
         constructor(nombre){
             this.nombre = nombre
-            this.mate = 0;
-            this.fisica = 0;
-            this.qumica = 0;
-            this.psico = 0;
-            this.lite = 0;
-            this.compu = 0;
+            this.mate = 1;
+            this.fisica = 1;
+            this.qumica = 1;
+            this.psico = 1;
+            this.lite = 1;
+            this.compu = 1;
         }
     }
 
@@ -125,7 +125,7 @@ window.onload = function(){
 
     function setWinScreen(root){
         let ganaste = document.createElement("h1");
-        ganaste.textContent = "Ganaste "+jugadorActivo.nombre+"OMG!!!!!!! :0";
+        ganaste.textContent = "Ganaste "+jugadorActivo.nombre+" OMG!!!!!!! :0";
         root.appendChild(ganaste);
     }
 
@@ -233,7 +233,6 @@ window.onload = function(){
         divTitulo.id="divTitulo";
         spanTitulo.id="spanTitulo";
 
- 
         
         // divContainer.setAttribute("id", "divContainer");
         // divPadre.appendChild(divTitulo);
@@ -252,6 +251,10 @@ window.onload = function(){
         input2.setAttribute("placeholder", "Jugador 2");
 
         btnInicio.addEventListener("click", ()=>{
+            if(input1.value == "" || input2.value == ""){
+                alert("Introduce nombres");
+                return;
+            }
             player1 = new Jugador(input1.value);
             player2 = new Jugador(input2.value);
             jugadorActivo = player1;
