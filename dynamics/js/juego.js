@@ -1,5 +1,6 @@
 window.onload = function(){
 
+    //Clase para llevar control de los jugadores
     class Jugador{
         constructor(nombre){
             this.nombre = nombre
@@ -12,6 +13,7 @@ window.onload = function(){
         }
     }
 
+    //Clase para crear respuestas
     class Respuesta{
         constructor(textRespuesta, boolCorrecto){
             this.boolCorrecto = boolCorrecto;
@@ -21,13 +23,12 @@ window.onload = function(){
             this.divRes.addEventListener("click", ()=>{
                 screenState = 3;
                 setResScreen(divPadre,this.boolCorrecto);
-                console.log("test");
             });
         }
     }
 
 
-
+    //funcion que itera por los logros de los jugadores para checar si gano
     function checkWin(){
         for(logro in jugadorActivo){
             if(logro != "nombre"){
@@ -39,6 +40,7 @@ window.onload = function(){
         return true;
     }
 
+    //Añade los logros de los jugadores
     function addTextDivPlayer(player){
         let text = "";
         text += "Player: "+player.nombre+"<br>"
@@ -52,6 +54,7 @@ window.onload = function(){
         return text;
     }
 
+    //añade los logros cuando contesta correctamente la respuesta
     function addLogro(){
         if(materia == "Matemáticas"){
             jugadorActivo.mate = 1;
@@ -73,6 +76,7 @@ window.onload = function(){
         }
     }
 
+    //quita los logros cuando contesta incorrectamente la respuesta
     function removeLogro(){
         if(materia == "Matemáticas"){
             jugadorActivo.mate = 0;
@@ -94,6 +98,7 @@ window.onload = function(){
         }
     }
 
+    //crea la vista donde se muestran si las respuesta era correcta
     function setResScreen(root, boolCorrecto){
         cleanScreen(root);
         if(boolCorrecto == 1){
@@ -102,7 +107,6 @@ window.onload = function(){
             divCor.textContent = "Correcto"
             divCor.id = "correcto";
             divPadre.insertBefore(divCor, divPadre.firstChild);
-            //console.log()
             if(checkWin()){
                 screenState = 4;
                 setScreens(4);
@@ -110,33 +114,37 @@ window.onload = function(){
             }
         }else{
             removeLogro();
+            //alterna entre los turnos de los jugadores
             jugadorActivo = jugadorActivo === player1 ? player2 : player1;
-            console.log(jugadorActivo);
             let divIncor = document.createElement("div");
             divIncor.textContent = "Incorrecto"
             divIncor.id = "incorrecto";
             divPadre.insertBefore(divIncor, divPadre.firstChild);
         }
+        //espera un segundo antes de cambiar de vista
         setTimeout(function() {
             screenState = 1;
             setScreens(1);
         }, 1000);
     }
 
+    //crea la vista que muestra el ganador
     function setWinScreen(root){
         let ganaste = document.createElement("h1");
         ganaste.textContent = "Ganaste "+jugadorActivo.nombre+" OMG!!!!!!! :0";
         root.appendChild(ganaste);
     }
 
+    //pone la pantalla de la pregunta con las respuestas
     function setQuestionScreen(root){
         let datos = {materia: materia}
+        //hace una peticion a php para obtener una pregunta, manda la materia que tocó
         fetch("./dynamics/php/juego.php", {method: "POST", body: JSON.stringify(datos)}).then(function(response){
             return response.json();
         }).then(function (json){
-            console.log(json);
             let divPregunta = document.createElement("div");
             let materiaHeader = document.createElement("h1");
+            //instancia las respuestas
             let res1 = new Respuesta(json.res1.respuesta, json.res1.boolCorrect);
             let res2 = new Respuesta(json.res2.respuesta, json.res2.boolCorrect);
             let res3 = new Respuesta(json.res3.respuesta, json.res3.boolCorrect);
@@ -161,10 +169,8 @@ window.onload = function(){
         let span = document.createElement("span");
         let btnSend = document.createElement("button");
         let contPlayers = document.createElement("div");
-        // let divPlayer1 = document.createElement("div");
         let divPlayer1 = document.createElement("span");
         let divPlayer2 = document.createElement("span");
-        // let divPlayer2 = document.createElement("div");
         let imagenRuleta = document.createElement("img");
         let imagenFlecha = document.createElement("img");
 
@@ -189,33 +195,21 @@ window.onload = function(){
 
         contPlayers.appendChild(divPlayer1);
         contPlayers.appendChild(divPlayer2);
-        divPadre.appendChild(span);
-        divPadre.appendChild(imagenFlecha);
-        divPadre.appendChild(imagenRuleta);
-        divPadre.appendChild(btnSend);
-        divPadre.appendChild(contPlayers);
-        // divPadre.appendChild(divPlayer1);
-        // divPadre.appendChild(divPlayer2);
-
-
-        // root.appendChild(span);
-        // root.appendChild(imagenRuleta);
-        // root.appendChild(imagenFlecha);
-        // root.appendChild(btnSend);
-        // root.appendChild(divPlayer1);
-        // root.appendChild(divPlayer2);
+        root.appendChild(span);
+        root.appendChild(imagenFlecha);
+        root.appendChild(imagenRuleta);
+        root.appendChild(btnSend);
+        root.appendChild(contPlayers);
 
         body.style.backgroundColor="#b5ead7";
 
-
+        //activa la animacion de la ruleta y selecciona una materia al azar
         btnSend.addEventListener("click",()=>{
             new Promise((resolve,reject)=>{
                 let casilla = Math.floor(Math.random() * 6);
                 materia = materias[casilla];
                 let vueltas = Math.floor(Math.random() * 5) + 2;
                 let degrees = (60*(casilla+1)-60)+(360*vueltas);
-                console.log(materia);
-                console.log(degrees);
                 imagenRuleta.style.transition = "transform 4s linear";
                 imagenRuleta.style.transform = "rotate("+degrees+"deg)";
                 setTimeout(()=>{
@@ -246,22 +240,17 @@ window.onload = function(){
         spanTitulo.id="spanTitulo";
 
         
-        // divContainer.setAttribute("id", "divContainer");
-        // divPadre.appendChild(divTitulo);
         spanTitulo.innerHTML="Preguntados";
-        divPadre.appendChild(spanTitulo);
-        divPadre.appendChild(divContainer);
+        root.appendChild(spanTitulo);
+        root.appendChild(divContainer);
         divContainer.appendChild(input1);
         divContainer.appendChild(input2);
-        divPadre.appendChild(btnInicio);
-        // root.appendChild(divContainer);
-        // root.appendChild(input1);
-        // root.appendChild(input2);
-        // root.appendChild(btnInicio);
+        root.appendChild(btnInicio);
         body.style.backgroundColor="#FF9AA2";
         input1.setAttribute("placeholder", "Jugador 1");
         input2.setAttribute("placeholder", "Jugador 2");
 
+        //obtiene el nombre de los jugadores
         btnInicio.addEventListener("click", ()=>{
             if(input1.value == "" || input2.value == ""){
                 alert("Introduce nombres");
@@ -270,17 +259,18 @@ window.onload = function(){
             player1 = new Jugador(input1.value);
             player2 = new Jugador(input2.value);
             jugadorActivo = player1;
-            console.log("AHHHHHHHHH me troleaste");
             screenState = 1
             setScreens(1);
         })
 
     }
 
+    //limpia la pantalla para crear nuevos elementos
     function cleanScreen(root){
         root.innerHTML = "";
     }
 
+    //limpia y lleva control de las vistas
     function setScreens(screen){
         cleanScreen(divPadre);
         if(screen == 0){
@@ -298,20 +288,22 @@ window.onload = function(){
     }
 
 
-    //controla el estado de la pantall
+    //declara algunas variables globales
+    let body = document.getElementById("body");
+    let player1, player2;
+    let jugadorActivo;
+    let screenState = 0;
+    let materias = ["Matemáticas","Computación", "Literatura", "Psicología", "Química", "Física"];
+    let materia = "Matemáticas";
+    let divPadre = document.getElementById("juego");
+
+
+    //controla el estado de la pantalla
     //0->Inicio
     //1->ruleta
     //2->pregunta
     //3->resPregunta
     //4->win
-    let body = document.getElementById("body");
-    let player1, player2;
-    let jugadorActivo;
-    let screenState = 0;
-    let materias = ["Matemáticas","Computación", "Literatura", "Psicología", "Química", "Física"];//"Física","Química","Psicología","Literatura","Computación"
-    let materia = "Matemáticas";
-
-    let divPadre = document.getElementById("juego");
     setScreens(0);
 
 }
