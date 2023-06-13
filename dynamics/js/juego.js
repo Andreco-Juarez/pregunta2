@@ -19,13 +19,15 @@ window.onload = function(){
             this.boolCorrecto = boolCorrecto;
             this.divRes = document.createElement("div");
             this.divRes.classList.add("respuesta");
-            this.divRes.textContent = textRespuesta;
+            // this.divRes.textContent = textRespuesta;
+            this.divRes.innerHTML="<span>"+textRespuesta+"</span>";
             this.divRes.addEventListener("click", ()=>{
                 screenState = 3;
                 setResScreen(divPadre,this.boolCorrecto);
             });
         }
     }
+    
 
 
     //funcion que itera por los logros de los jugadores para checar si gano
@@ -97,16 +99,20 @@ window.onload = function(){
             jugadorActivo.compu = 0;
         }
     }
-
-    //crea la vista donde se muestran si las respuesta era correcta
+    /*Pantalla Correcto Incorrecto*/ 
     function setResScreen(root, boolCorrecto){
         cleanScreen(root);
         if(boolCorrecto == 1){
             addLogro();
-            let divCor = document.createElement("div");
+            let divCor = document.createElement("span");
+            let imgCorrect = document.createElement("img");
+            imgCorrect.setAttribute("src","./statics/images/feliz.jpg");
+            imgCorrect.id="imgCorrect";
             divCor.textContent = "Correcto"
             divCor.id = "correcto";
             divPadre.insertBefore(divCor, divPadre.firstChild);
+            divPadre.insertBefore(imgCorrect, divPadre.firstChild);
+            //console.log()
             if(checkWin()){
                 screenState = 4;
                 setScreens(4);
@@ -116,10 +122,15 @@ window.onload = function(){
             removeLogro();
             //alterna entre los turnos de los jugadores
             jugadorActivo = jugadorActivo === player1 ? player2 : player1;
-            let divIncor = document.createElement("div");
+            console.log(jugadorActivo);
+            let divIncor = document.createElement("span");            
+            let imgIncorrect = document.createElement("img");
+            imgIncorrect.setAttribute("src","./statics/images/triste.png");
+            imgIncorrect.id="imgCorrect";
             divIncor.textContent = "Incorrecto"
             divIncor.id = "incorrecto";
             divPadre.insertBefore(divIncor, divPadre.firstChild);
+            divPadre.insertBefore(imgIncorrect, divPadre.firstChild);
         }
         //espera un segundo antes de cambiar de vista
         setTimeout(function() {
@@ -127,38 +138,91 @@ window.onload = function(){
             setScreens(1);
         }, 1000);
     }
-
-    //crea la vista que muestra el ganador
+    /*Pantalla GANAR*/
     function setWinScreen(root){
-        let ganaste = document.createElement("h1");
+        let ganaste = document.createElement("div");
+        let imgChango = document.createElement("img");
+        ganaste.id="ganarDiv";
+        imgChango.setAttribute("src","./statics/images/chango.png");
         ganaste.textContent = "Ganaste "+jugadorActivo.nombre+" OMG!!!!!!! :0";
-        root.appendChild(ganaste);
+        divPadre.appendChild(ganaste);
+        divPadre.appendChild(imgChango);
     }
 
-    //pone la pantalla de la pregunta con las respuestas
+    /*Pantalla de Pregunta*/
     function setQuestionScreen(root){
         let datos = {materia: materia}
         //hace una peticion a php para obtener una pregunta, manda la materia que tocó
         fetch("./dynamics/php/juego.php", {method: "POST", body: JSON.stringify(datos)}).then(function(response){
             return response.json();
         }).then(function (json){
-            let divPregunta = document.createElement("div");
-            let materiaHeader = document.createElement("h1");
-            //instancia las respuestas
+
+
+            let divPregunta = document.createElement("span");
+            let materiaHeader = document.createElement("span");
+            let divMateria = document.createElement("div");
+            let img1=document.createElement("img");
+            let img2=document.createElement("img");
+            let contRespuestas=document.createElement("div");
+
+            contRespuestas.id="contRespuestas";
+            divPregunta.id="spanPregunta";
+            img1.id="img1";
+            img2.id="img2";
+
+            switch (materia) {
+                case "Matemáticas":
+                    img1.setAttribute("src", "./statics/images/mathIcon.png");
+                    img2.setAttribute("src", "./statics/images/mathIcon.png");
+                    break;
+                case "Computación":
+                    img1.setAttribute("src", "./statics/images/compuIcon.png");
+                    img2.setAttribute("src", "./statics/images/compuIcon.png");
+                    break;
+                case "Literatura":
+                    img1.setAttribute("src", "./statics/images/liteIcon.png");
+                    img2.setAttribute("src", "./statics/images/liteIcon.png");
+                    break;                   
+                case "Psicología":
+                    img1.setAttribute("src", "./statics/images/psicoIcon.png");
+                    img2.setAttribute("src", "./statics/images/psicoIcon.png");
+                    break;
+                case "Química":
+                    img1.setAttribute("src", "./statics/images/quimica.png");
+                    img2.setAttribute("src", "./statics/images/quimica.png");
+                    break;
+                case "Física":
+                    img1.setAttribute("src", "./statics/images/fisicaIcon.png");
+                    img2.setAttribute("src", "./statics/images/fisicaIcon.png");
+                default:
+                    break;
+            }
+            divMateria.id="divMateria";
+
+            root.appendChild(img1);
+            root.appendChild(materiaHeader);
+            root.appendChild(img2);
+
+            
+
             let res1 = new Respuesta(json.res1.respuesta, json.res1.boolCorrect);
             let res2 = new Respuesta(json.res2.respuesta, json.res2.boolCorrect);
             let res3 = new Respuesta(json.res3.respuesta, json.res3.boolCorrect);
             let res4 = new Respuesta(json.res4.respuesta, json.res4.boolCorrect);
+
+            contRespuestas.appendChild(res1.divRes);
+            contRespuestas.appendChild(res2.divRes);
+            contRespuestas.appendChild(res3.divRes);
+            contRespuestas.appendChild(res4.divRes);
     
             divPregunta.textContent = json.pregunta;
             materiaHeader.textContent = materia;
-    
-            root.appendChild(materiaHeader);
+
+            root.appendChild(divMateria);
             root.appendChild(divPregunta);
-            root.appendChild(res1.divRes);
-            root.appendChild(res2.divRes);
-            root.appendChild(res3.divRes);
-            root.appendChild(res4.divRes);
+            root.appendChild(contRespuestas);
+            body.style.backgroundColor="#E2F0CB"; 
+            
         });
 
 
@@ -214,7 +278,7 @@ window.onload = function(){
                 imagenRuleta.style.transform = "rotate("+degrees+"deg)";
                 setTimeout(()=>{
                     resolve();
-                },5000)
+                },5000)       /*5000*/
             }).then(()=>{
                 screenState = 2;
                 setScreens(2);
